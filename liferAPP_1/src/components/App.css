@@ -1,0 +1,12 @@
+.TopBar{
+  padding: 10px; 
+  borderBottom:1px solid lightgrey;
+}
+.activeTable{
+  fontWeight:"bold";
+  color:"red";
+  position:"absolute";
+  top:22px;
+  right:20px;
+  dispy:"inline-block";
+}

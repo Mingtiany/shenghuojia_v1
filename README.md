@@ -1,5 +1,7 @@
 # shenghuojia_v1
 
+# 前台Ajax请求数据约定
+
 # "注册"
 
 # "登录"

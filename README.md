@@ -149,8 +149,8 @@ params:{
       
       "jingzhuangxiu":"{yes/unknow}",精装修
       
-      "jingdianti":"{yes/unknow}"近电梯
-      
+      "jingditie":"{yes/unknow}"近地铁
+      
 }
 
   如果"miju"属性值为“all”返回所有房源的相关信息

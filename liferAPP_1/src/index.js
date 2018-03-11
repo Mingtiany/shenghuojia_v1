@@ -10,6 +10,7 @@ import Miyou from './components/Miyou/Miyou';
 import Jiaoyou from './components/Jiaoyou/Jiaoyou';
 import Zhuchao from './components/Zhuchao/Zhuchao';
 import Miju_detail from './components/Miju_detail/Miju_detail';
+import Personal_page from './components/Personal_page/Personal_page';
 
 render((
 
@@ -17,6 +18,7 @@ render((
     <Route path="/" component={App}>
       <IndexRoute component={Home}/>
       <Route path="/denglu_zhuce" component={Denglu_zhuce}/>
+      <Route path="/Personal_page" component={Personal_page}/>
       <Route path="/miju/:searchName/:searchCity" component={Miju}/>
       <Route path="/miju/:id" component={Miju_detail}/>
       <Route path="/miyou" component={Miyou}/>

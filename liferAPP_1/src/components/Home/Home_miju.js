@@ -66,6 +66,7 @@ class Home_miju extends Component {
     return (
       <div className="module_miju">
         <table className="Table_miju">
+        <tbody>
           <tr>
             <td className="miju_title">
                 <h4>觅居</h4>
@@ -78,6 +79,7 @@ class Home_miju extends Component {
                <NavLink to="/miju/none/none"><h5>更多房源></h5></NavLink>
             </td>
           </tr>
+        </tbody> 
         </table>
       </div>
     );

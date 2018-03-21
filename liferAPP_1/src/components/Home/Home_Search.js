@@ -30,6 +30,7 @@ class Home_Search extends Component {
     return (
         <div className="home_search">
           <table className="Table"> 
+           <tbody>
             <tr>
               <td>
                 <select className="selectCity" ref="City">
@@ -45,14 +46,12 @@ class Home_Search extends Component {
                <input className="searchButton" type="button" name="" value="搜索" onClick={this.search}/>
               </td>
             </tr>
-          </table>
+          </tbody>
+          </table> 
         </div>
     );
   }
 }
-Home_Search.propTypes = {
-  setSearch: PropTypes.func.isRequired
-};
 Home_Search.contextTypes = {
 router: PropTypes.object.isRequired
 };

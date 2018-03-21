@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import Search_Jiaoyou from './Search_Jiaoyou';
 import '../Search.css';
 import JiaoyouList from './JiaoyouList'

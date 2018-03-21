@@ -1,9 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-
+import Issue_Miju from"./Issue_Miju"
 class Search_Miju extends Component {
   constructor (props) {
     super(props);
     // this.search = this.search.bind(this);
+    this.state={
+      show:"none"
+    };
   }
 
   search=()=>{
@@ -35,12 +38,26 @@ class Search_Miju extends Component {
     xiaoqu,dianti,jingzhuangxiu,jingdianti);
   }
 
+
+ issue_miju=()=>{
+      this.setState({
+        show:"block"
+      });
+  }
+  hide_issue=()=>{
+      this.setState({
+        show:"none"
+      });
+  }
+
   render () {
     return (
         <div className="contain">
+        <Issue_Miju show={this.state.show} hide={this.hide_issue}/>
         <div className="search_1">
           <p className="search_title">寻找您的理想房源></p>
-          <table className="Table"> 
+          <table className="Table">
+           <tbody> 
             <tr>
               <td>
                 <select className="selectCity" ref="City">
@@ -56,8 +73,10 @@ class Search_Miju extends Component {
                 <input className="searchButton" type="button" name="" value="搜索" onClick={this.search}/>
               </td>
             </tr>
+            </tbody>
           </table>
         </div>
+        <div className="release_miju" onClick={this.issue_miju}>发布房源信息</div>
         <br/>
         <div className="search_2">
           <span>更多选择筛选条件：</span>

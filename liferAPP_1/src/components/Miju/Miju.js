@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import Search_Miju from './Search_Miju';
 import '../Search.css';
 import MijuList from './MijuList'
@@ -21,7 +21,7 @@ class Miju extends Component {
    componentWillMount(){
      var searchName=this.props.params.searchName;
      var searchCity=this.props.params.searchCity;
-     if (searchName=="none"&&searchCity=="none"){
+     if (searchName==="none"&&searchCity==="none"){
       return
      }
      this.setState({

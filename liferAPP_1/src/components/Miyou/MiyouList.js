@@ -1,18 +1,61 @@
 import React, { Component, PropTypes } from 'react';
 import ajax from '../../utils/ajax';
-import axios from 'axios'
+import axios from 'axios';
+import {Link} from 'react-router';
+import "./MiyouList.css"
 
 class MiyouList extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      firstView: true,
+      firstView: false,
       loading: false,
-      users: null,
+      roommates:[
+      {
+          "_idcard":"1231323",
+          "avater":"https://avatars2.githubusercontent.com/u/36024639?v=4",
+          "nickname":"逍遥游",
+          "condition":"#宅男#IT#游戏", 
+          "location":"求租大学城附近",
+          "want_rent_price":"<1500/月",       
+          "isHost":"NO",
+          "introduction":"一段笑死啊哦的介绍，哈哈十分十分"
+      },
+      {
+          "_idcard":"1341323",
+          "avater":"https://avatars2.githubusercontent.com/u/36024639?v=4",
+          "nickname":"逍遥游",
+          "condition":"#宅男#IT#游戏", 
+          "location":"#求租大学城附近",
+          "want_rent_price":"<1500/月",       
+          "isHost":"NO",
+          "introduction":"一段笑死啊哦的介绍，哈哈十分十分"
+      },
+      {
+          "_idcard":"4531323",
+          "avater":"https://avatars2.githubusercontent.com/u/36024639?v=4",
+          "nickname":"逍遥游",
+          "condition":"#宅男#IT#游戏", 
+          "location":"#求租大学城附近",
+          "want_rent_price":"<1500/月",       
+          "isHost":"NO",
+          "introduction":"一段笑死啊哦的介绍，哈哈十分十分"
+      },
+      {
+          "_idcard":"12erwrw23",
+          "avater":"https://avatars2.githubusercontent.com/u/36024639?v=4",
+          "nickname":"逍遥游",
+          "condition":"#宅男#IT#游戏", 
+          "location":"#求租大学城附近",
+          "want_rent_price":"<1500/月",       
+          "isHost":"NO",
+          "introduction":"一段笑死啊哦的介绍，哈哈十分十分"
+      },
+      ],
       error: null
     };
   }
-
+/*
   componentWillReceiveProps(nextProps)  {
     let searchName = nextProps.searchName;
     if(searchName!=''){
@@ -30,7 +73,7 @@ class MiyouList extends React.Component {
       })
     }
   }
-
+*/
   render () {
 
     if (this.state.firstView) {
@@ -43,15 +86,22 @@ class MiyouList extends React.Component {
       return (
         <div className="row">
           {
-            this.state.users.map((user) => (
-              <div className="card" key={user.html_url}>
-                <a href={user.html_url} target="_blank">
-                  <img src={user.avatar_url} style={{width: '100px'}}/>
-                </a>
-                <p className="card-text">{user.login}</p>
-              </div>
+            this.state.roommates.map((roommate) => (
+              <div className="CardId" key={roommate._idcard}>
+                    <img className="ProfilePhoto" src={roommate.avater}/>
+                    <div className="imformation">
+                      <h3 className="username">{roommate.nickname}</h3>
+                      <div className="flag1"><Link to={"/miju/:"+roommate._idcard}>有房源</Link></div>
+                        <p >{roommate.location}{roommate.condition} </p>
+                        <p >{roommate.want_rent_price}</p>
+                    </div>
+                    <div className="introduce">
+                      <p>{roommate.introduction}</p>
+                    </div>
+                  </div>
             ))
           }
+
         </div>
       );
     }

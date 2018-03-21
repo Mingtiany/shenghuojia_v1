@@ -1,18 +1,59 @@
 import React, { Component, PropTypes } from 'react';
 import ajax from '../../utils/ajax';
-import axios from 'axios'
-import NavLink from'./NavLink.js'
+import axios from 'axios';
+import NavLink from'./NavLink.js';
+import "./MijuList.css"
 class MijuList extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      firstView: true,
+      firstView: false,
       loading: false,
-      users: null,
+      houses:[
+      {
+        "id":"1",
+        "title":"整租 | 雨花区 实拍房源 交通便利 家电齐全 洪园",
+        "photo":"https://avatars0.githubusercontent.com/u/1560937?v=4",
+        "room_style":"3室2厅1卫",
+        "community":"周边有地质中学，安静",
+        "rent_style":"整租",
+        "rent_price":"2500/月",
+        "location":"岳麓区中南大学",
+        "room_area":"86平方米",
+        "room_facility":"洗衣机，空调，暖气",
+        "host":"李先生"
+      },
+      {
+        "id":"2",
+        "title":"整租 | 雨花区 实拍房源 交通便利 家电齐全 洪园",
+        "photo":"https://avatars0.githubusercontent.com/u/1560937?v=4",
+        "room_style":"3室2厅1卫",
+        "community":"周边有地质中学，安静",
+        "rent_style":"整租",
+        "rent_price":"2500/月",
+        "location":"岳麓区中南大学",
+        "room_area":"86平方米",
+        "room_facility":"洗衣机，空调，暖气",
+        "host":"李先生"
+      },
+      {
+        "id":"3",
+        "title":"整租 | 雨花区 实拍房源 交通便利 家电齐全 洪园",
+        "photo":"https://avatars0.githubusercontent.com/u/1560937?v=4",
+        "room_style":"3室2厅1卫",
+        "community":"周边有地质中学，安静",
+        "rent_style":"整租",
+        "rent_price":"2500/月",
+        "location":"岳麓区中南大学",
+        "room_area":"86平方米",
+        "room_facility":"洗衣机，空调，暖气",
+        "host":"李先生"
+      }
+      ],
       error: null
     };
   }
-
+/*
   componentWillReceiveProps(nextProps)  {
     let searchName = nextProps.searchName;
     if(searchName!=''){
@@ -30,7 +71,7 @@ class MijuList extends React.Component {
       })
     }
   }
-
+*/
   render () {
 
     if (this.state.firstView) {
@@ -43,18 +84,32 @@ class MijuList extends React.Component {
       return (
         <div className="row">
           {
-            this.state.users.map((user) => {
-              const to = '/miju/'+user.login
-              return(
-              <div className="card" key={user.html_url}>
-                 <NavLink to={to}>
-                  <img src={user.avatar_url} style={{width: '100px'}}/>
-                 </NavLink>
-                <p className="card-text">{user.login}</p>
-              </div>
-            )})
-          }
-        </div>
+            this.state.houses.map((house) => {
+              const to = '/miju/'+house.id
+              return(    
+                          <NavLink to={to} key={house.id}>
+                           <div className="Miju_CardId">
+                                  <div className="Miju_ProfilePhoto">
+                                    <img className="Miju_displayPhoto"src={house.photo} />
+                                    <div className="Miju_MorePhoto"></div>                  
+                                  </div>
+                                  <div className="Miju_imformation">
+                                    <h3 className="Miju_name">{house.title}</h3>
+                                    <div className="Miju_flag2">房东直租</div>
+                                        <p  >房租：{house.rent_price}</p>
+                                        <p  >房型：{house.room_style}</p>
+                                        <p  >面积：{house.room_area}</p>
+                                        <p  >家电：{house.room_facility}</p>
+                                        <p  >位置：{house.location}</p>
+                                        <p  >联系房东：{house.host}</p>
+
+                                    </div>
+                            </div>
+                            </NavLink>
+                            )})
+                         }
+                     </div>
+                    
       );
     }
   }

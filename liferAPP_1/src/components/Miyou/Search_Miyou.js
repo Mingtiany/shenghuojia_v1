@@ -1,9 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-
+import Issue_Miyou from"./Issue_Miyou"
 class Search_Miyou extends Component {
   constructor (props) {
     super(props);
     // this.search = this.search.bind(this);
+    this.state={
+      show:"none"
+    };
   }
 
   search=()=>{
@@ -32,12 +35,25 @@ class Search_Miyou extends Component {
     RejectSmoking,RejectNoise);
   }
 
+  issue_miyou=()=>{
+      this.setState({
+        show:"block"
+      });
+  }
+  hide_issue=()=>{
+      this.setState({
+        show:"none"
+      });
+  }
+
   render () {
     return (
         <div className="contain">
+        <Issue_Miyou show={this.state.show} hide={this.hide_issue}/>
         <div className="search_1">
           <p className="search_title">寻找您的理想室友></p>
           <table className="Table"> 
+           <tbody>
             <tr>
               <td>
                 <select className="selectCity" ref="City">
@@ -53,8 +69,10 @@ class Search_Miyou extends Component {
                 <input className="searchButton" type="button" name="" value="搜索" onClick={this.search}/>
               </td>
             </tr>
+            </tbody>
           </table>
         </div>
+        <div className="release_miyou" onClick={this.issue_miyou}>发布觅友信息</div>
         <br/>
         <div className="search_2">
           <span>更多选择筛选条件：</span>

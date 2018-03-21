@@ -62,6 +62,7 @@ class Home_jiaoyou extends Component {
     return (
       <div className="module_jiaoyou" >
         <table className="Table_jiaoyou">
+         <tbody>
           <tr>
             <td className="jiaoyou_title" >
     
@@ -76,6 +77,7 @@ class Home_jiaoyou extends Component {
 
             </td>
           </tr>
+          </tbody>
         </table>
       </div>
     );

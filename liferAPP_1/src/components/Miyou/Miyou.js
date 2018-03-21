@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import Search_Miyou from './Search_Miyou';
 import '../Search.css';
 import MiyouList from './MiyouList'

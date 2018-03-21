@@ -12,31 +12,35 @@ export default class App extends React.Component {
   constructor (props) {
     super(props);
      this.state={
-      status:0,
-      user:"",
-      error:""
+      user:{"username":"","status":0,"avatar":""},
+      error:"",
+      socket:""
      };
   }
 
-  componentWillMount(){
-     const url = `https://localhost/static/userData.json`;
-    axios.get(url)
-      .then((response) => {
-        console.log(response)
-        
-      })
-      .catch((error)=>{
-        console.log(error)
-        this.setState({ error: error.toString() })
-      })
+
+updateState=(newUser)=>{
+this.setState({
+  user:newUser
+});
+
+}
+
+displayChildren=()=>{
+  if(this.props.children.type.name==="Denglu_zhuce"){
+    return(React.cloneElement(this.props.children, {updateState: this.updateState}));   
   }
+  else{
+    return(this.props.children);
+  }
+}
 
 setTopBar=(newStatus)=>{
-  if(this.state.status===0){
+  if(this.state.user.status===0){
     return(<Link to="/denglu_zhuce" activeClassName="active">登录/注册|</Link>);
   }
-  else if(this.state.status===1){
-    return(<Link to="/Personal_page" ><img className="avatar" src="https://avatars2.githubusercontent.com/u/36024639?v=4"/></Link>);
+  else if(this.state.user.status===1){
+    return(<Link to="/Personal_page" ><img className="avatar" src={this.state.user.avatar}/></Link>);
   }
 }
   
@@ -53,7 +57,7 @@ setTopBar=(newStatus)=>{
             <Link to="/zhuchao" activeClassName="active">筑巢|</Link>
          </div>
        </div>
-            {this.props.children}
+            {this.displayChildren()}
 
     </div>
     );

@@ -34,7 +34,8 @@ class Search_Jiaoyou extends Component {
         <div className="contain">
         <div className="search_1">
           <p className="search_title">寻找您的理想活动></p>
-          <table className="Table"> 
+          <table className="Table">
+          <tbody> 
             <tr>
               <td>
                 <select className="selectCity" ref="City">
@@ -50,6 +51,7 @@ class Search_Jiaoyou extends Component {
                 <input className="searchButton" type="button" name="" value="搜索" onClick={this.search}/>
               </td>
             </tr>
+            </tbody>
           </table>
         </div>
         <br/>

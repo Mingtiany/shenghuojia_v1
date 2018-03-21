@@ -1,0 +1,87 @@
+.myContent{
+	width: 100%;
+}
+.mytable{
+	width: 70%; margin-top: 0;border:0;border-left: 1px solid #000;border-right: 1px solid #000;margin-left:15%; 
+}
+.basicImformation{
+	margin:20px;
+}
+.title{
+	margin-top: 0px;margin-bottom: 10px;width: 100%;
+}
+.myProfilePhoto{
+	    display: inline-block;
+		width: 170px;
+		height:200px;
+		margin:5px;
+}
+.mydisplayPhoto{
+	     width: 170px;
+         height: 150px;
+         border-style: solid;
+         border-width: 1px;
+         margin-top: 0;
+}
+.myMorePhoto{
+	     width: 170px;
+         height: 40px;
+         margin-top: 10px;
+         border-style: solid;
+         border-width: 1px;
+}
+.imformation{
+	display: inline-block;margin-left: 25px;margin-top: 10px; font-size: 13px;
+}
+.room_facility
+{
+	margin-left:20px;margin-right:20px;padding: 20px; border: 0;border-top: 1px solid #000;border-bottom: 1px solid #000;
+}
+.room_facility span{
+	vertical-align:top;
+}
+.room_facility div{
+	font-size: 10px;width: 30px;margin: 5px; display: inline-block;
+}
+.house_discribtion{
+	margin-left:20px;margin-right:20px;padding: 10px; border: 0;border-bottom: 1px solid #000; 
+}
+.house_discribtion span{
+	float: left;height: 140px;
+}
+.house_discribtion div{
+	font-size: 12px;
+}
+.community{
+	margin-left:20px;margin-right:20px;padding: 10px; border: 0;border-bottom: 1px solid #000;height: 170px;
+}
+.community span{
+	float: left;
+}
+.community div{
+	font-size: 12px;float: left;
+}
+.map{
+	height: 150px;width: 300px;float: right;
+}
+.similarHouse{
+	margin-left:20px;margin-right:20px;padding: 10px; height: 170px; 
+}
+.similarHouse span{
+	float: left;
+}
+.display{
+	margin-left: 100px;
+}
+.displaycard{
+	display: inline-block; border: 1px solid #000; width: 130px;margin: 10px;
+}
+.dispPhoto{
+	width: 130px;height: 100px;
+}
+.disTag{
+border:0; border-top: 1px solid #000; width: 130px;font-size: 13px;	
+}
+.the_host{
+	display: inline-block;
+}

@@ -66,6 +66,7 @@ class Home_zhuchao extends Component {
     return (
       <div className="module_zhuchao">
         <table className="Table_zhuchao">
+        <tbody>
           <tr>
             <td className="zhuchao_title">
                 <h4>筑巢</h4>
@@ -78,6 +79,7 @@ class Home_zhuchao extends Component {
                <NavLink to="/zhuchao"><h5>更多文章></h5></NavLink>
             </td>
           </tr>
+         </tbody> 
         </table>
       </div>
     );

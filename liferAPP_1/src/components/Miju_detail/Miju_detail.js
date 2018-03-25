@@ -18,8 +18,8 @@ class Miju_detail extends Component {
       "room_left":"4缺2",
       "room_facility":"洗衣机,空调,暖气",
       "location":"距离2号线迎宾路口地铁站1200米",
-      "longitude":"",
-      "latitude":"",
+      "longitude":"112.97",
+      "latitude":"28.184",
       "house_discribtion":"1.周边学校有地质中学 2.交通便利",
       "host":"李先生"
     },
@@ -29,6 +29,26 @@ class Miju_detail extends Component {
     };
 
   }
+
+componentDidMount () {
+  var BMap = window.BMap
+  var map = new BMap.Map("map"); // 创建Map实例
+  var point= new BMap.Point(this.state.house.longitude,this.state.house.latitude);
+  map.centerAndZoom(point, 11); // 初始化地图,设 置中心点坐标和地图级别
+  map.addControl(new BMap.MapTypeControl()); //添加地图类型控件
+  map.setCurrentCity("北京"); // 设置地图显示的城市 此项是必须设置的
+  map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+  var marker = new BMap.Marker(point);        // 创建标注    
+  map.addOverlay(marker);// 将标注添加到地图中
+  var opts = {    
+    width : 50,     // 信息窗口宽度    
+    height: 10,     // 信息窗口高度    
+    title : this.state.house.title  // 信息窗口标题   
+    }    
+  var infoWindow = new BMap.InfoWindow(this.state.house.location, opts);  // 创建信息窗口对象    
+  map.openInfoWindow(infoWindow, map.getCenter());      // 打开信息窗口
+                      
+}
 
   handleMouseOver=(e)=>{
 
@@ -97,9 +117,9 @@ class Miju_detail extends Component {
               <p>小区：{this.state.house.community.xiaoqu}</p>
               <p>地址：{this.state.house.community.addr}</p>
             </div>
-            <div className="map" >
-              <img src="picture/map.png"/>
-            </div>
+            
+            <div id='map' />
+          
           </div>
         </td>
       </tr>

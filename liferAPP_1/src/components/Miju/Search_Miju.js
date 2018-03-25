@@ -1,11 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import Issue_Miju from"./Issue_Miju"
+import Issue_Miju from"./Issue_Miju";
+import Issue_Miyou from "../Miyou/Issue_Miyou"
 class Search_Miju extends Component {
   constructor (props) {
     super(props);
     // this.search = this.search.bind(this);
     this.state={
-      show:"none"
+      show:"none",
+      showMiyou:"none"
     };
   }
 
@@ -50,10 +52,21 @@ class Search_Miju extends Component {
       });
   }
 
+ hide_Miyou_issue=()=>{
+      this.setState({
+        showMiyou:"none"
+      });
+  }
+ display_issue_miyou=()=>{
+      this.setState({
+        showMiyou:"block"
+      });
+  }
   render () {
     return (
         <div className="contain">
-        <Issue_Miju show={this.state.show} hide={this.hide_issue}/>
+        <Issue_Miju show={this.state.show} hide={this.hide_issue} display_miyou={this.display_issue_miyou}/>
+        <Issue_Miyou show={this.state.showMiyou} hide={this.hide_Miyou_issue}/>
         <div className="search_1">
           <p className="search_title">寻找您的理想房源></p>
           <table className="Table">

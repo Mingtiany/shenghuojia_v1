@@ -47,13 +47,13 @@
 	margin-left:20px;margin-right:20px;padding: 10px; border: 0;border-bottom: 1px solid #000; 
 }
 .house_discribtion span{
-	float: left;height: 140px;
+	float: left;
 }
 .house_discribtion div{
 	font-size: 12px;
 }
 .community{
-	margin-left:20px;margin-right:20px;padding: 10px; border: 0;border-bottom: 1px solid #000;height: 170px;
+	margin-left:20px;margin-right:20px;padding: 10px; border: 0;border-bottom: 1px solid #000;height: 200px;
 }
 .community span{
 	float: left;
@@ -61,8 +61,8 @@
 .community div{
 	font-size: 12px;float: left;
 }
-.map{
-	height: 150px;width: 300px;float: right;
+#map{
+	height: 180px;width: 350px;float: right;
 }
 .similarHouse{
 	margin-left:20px;margin-right:20px;padding: 10px; height: 170px; 

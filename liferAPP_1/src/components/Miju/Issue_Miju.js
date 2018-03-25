@@ -8,6 +8,10 @@ class Issue_Miju extends React.Component{
 
   issue=()=>{
     this.props.hide();
+    var needShare=this.refs.needShare.checked;
+    if(needShare){
+     this.props.display_miyou();
+    }
   }
 
   render(){
@@ -17,65 +21,65 @@ class Issue_Miju extends React.Component{
   		<table  border="2" bordeColor="#000">
   		 <tbody>
   		   <tr>
-  		    <td>状态：</td>
-          <td>寻室友</td>
-  		   </tr>
+  		      <td>状态：</td>
+            <td>寻室友</td>
+         </tr>
   		   <tr>
   		    <td>标题：</td>
-  		    <td><input type="text"/></td>
+  		    <td><div style={{marginTop:5}}><input type="text"/></div></td>
   		   </tr>
          <tr>
           <td>租赁方式：</td>
-          <td><select><option>合租</option><option>整租</option></select></td>
+          <td><div style={{marginTop:5}}><select><option>合租</option><option>整租</option></select></div></td>
          </tr>
          <tr> 
           <td>剩余房间：</td>
-          <td><input type="text"/></td>
+          <td><div style={{marginTop:5}}><input type="text"/></div></td>
          </tr>
   		   <tr> 
   	     	<td>租金：</td>
-  	     	<td><input type="text"/></td>
+  	     	<td><div style={{marginTop:5}}><input type="text"/></div></td>
   	       </tr>
   		   <tr> 
   		    <td>房型：</td>
-  		    <td><input type="text"/></td>
+  		    <td><div style={{marginTop:5}}><input type="text"/></div></td>
   		   </tr> 
          <tr>
           <td>面积：</td>
-          <td><input type="text"/></td>
+          <td><div style={{marginTop:5}}><input type="text"/></div></td>
          </tr> 
   		   <tr>
 		    	<td>位置：</td>
-  		    <td><input type="text"/></td>
+  		    <td><div style={{marginTop:5}}><input type="text"/></div></td>
   		   </tr>   
          <tr>
           <td>联系人：</td>
-          <td><input type="text"/></td>
+          <td><div style={{marginTop:5}}><input type="text"/></div></td>
          </tr>  
          <tr>
           <td>联系电话：</td>
-          <td><input type="text"/></td>
+          <td><div style={{marginTop:5}}><input type="text"/></div></td>
          </tr> 
          <tr>
           <td>房源设施：</td>
-          <td><input type="text"/></td>
+          <td><div style={{marginTop:5}}><input type="text"/></div></td>
          </tr>
          <tr>
           <td>小区名：</td>
-          <td><input type="text"/></td>
+          <td><div style={{marginTop:5}}><input type="text"/></div></td>
          </tr>
          <tr>
           <td>小区地址：</td>
-          <td><input type="text"/></td>
+          <td><div style={{marginTop:5}}><input type="text"/></div></td>
          </tr>
          <tr>
           <td>房源图片：</td>
-          <td><div style={{width:50,height:50,border:"1px solid #000"}}></div></td>
+          <td><div style={{width:50,height:50,border:"1px solid #000",marginTop:5}}></div></td>
          </tr>
 
   		   <tr>
-  		    <td><input type="checkbox"/>需要找人合租？</td>
-  		    <td><input type="button" value="发布" onClick={this.issue}/></td>
+  		    <td><input type="checkbox" ref="needShare"/>需要找人合租？</td>
+  		    <td><div style={{marginLeft:"40%"}}><input type="button" value="发布" onClick={this.issue}/></div></td>
   		   </tr> 
   		 </tbody>
   		</table>
@@ -87,5 +91,8 @@ class Issue_Miju extends React.Component{
 }
 Issue_Miju.propTypes = {
   hide: PropTypes.func.isRequired
+};
+Issue_Miju.propTypes = {
+  display_miyou: PropTypes.func.isRequired
 };
 export default Issue_Miju;

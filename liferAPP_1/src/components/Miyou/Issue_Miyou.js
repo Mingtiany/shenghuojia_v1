@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-
 class Issue_Miyou extends React.Component{
     constructor (props) {
     super(props);
@@ -8,6 +7,10 @@ class Issue_Miyou extends React.Component{
 
   issue=()=>{
     this.props.hide();
+    var isRent=this.refs.isRent.checked;
+    if(isRent){
+     this.props.display_Miju();
+    }
   }
 
   render(){
@@ -22,27 +25,27 @@ class Issue_Miyou extends React.Component{
   		   </tr>
   		   <tr>
   		    <td>tag:</td>
-  		    <td><input type="text"/></td>
+  		    <td><div style={{marginTop:10}}><input type="text"/></div></td>
   		   </tr>
   		   <tr> 
   	     	<td>理想租金：</td>
-  	     	<td><input type="text"/></td>
+  	     	<td><div style={{marginTop:10}}><input type="text"/></div></td>
   	       </tr>
   	       <tr>	
   		    <td>所在区域：</td>
-  		    <td><input type="text"/></td>
+  		    <td><div style={{marginTop:10}}><input type="text"/></div></td>
   		   </tr>
   		   <tr> 
   		    <td>所在沿线：</td>
-  		    <td><input type="text"/></td>
+  		    <td><div style={{marginTop:10}}><input type="text"/></div></td>
   		   </tr> 
   		   <tr>
-			<td>简介：</td>
-  		    <td><textarea rows="3" cols="30"/></td>
+		    	<td>简介：</td>
+  		    <td><div style={{marginTop:10}}><textarea rows="3" cols="30"/></div></td>
   		   </tr>   
   		   <tr>
-  		    <td><input type="checkbox"/>已租房？</td>
-  		    <td><input type="button" value="发布" onClick={this.issue}/></td>
+  		    <td><input type="checkbox" ref="isRent" />已租房？</td>
+  		    <td><div style={{marginTop:10,marginLeft:"40%"}}><input type="button" value="发布" onClick={this.issue}/></div></td>
   		   </tr> 
   		 </tbody>
   		</table>
@@ -54,5 +57,8 @@ class Issue_Miyou extends React.Component{
 }
 Issue_Miyou.propTypes = {
   hide: PropTypes.func.isRequired
+};
+Issue_Miyou.propTypes = {
+  display_Miju: PropTypes.func.isRequired
 };
 export default Issue_Miyou;

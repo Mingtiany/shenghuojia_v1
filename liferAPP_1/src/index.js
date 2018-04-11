@@ -9,7 +9,9 @@ import Miju from './components/Miju/Miju';
 import Miyou from './components/Miyou/Miyou';
 import Jiaoyou from './components/Jiaoyou/Jiaoyou';
 import Zhuchao from './components/Zhuchao/Zhuchao';
+import Zhuchao_detail from './components/Zhuchao_detail/Zhuchao_detail';
 import Miju_detail from './components/Miju_detail/Miju_detail';
+import Jiaoyou_detail from './components/Jiaoyou_detail/Jiaoyou_detail';
 import Personal_page from './components/Personal_page/Personal_page';
 
 render((
@@ -23,7 +25,9 @@ render((
       <Route path="/miju/:id" component={Miju_detail}/>
       <Route path="/miyou" component={Miyou}/>
       <Route path="/jiaoyou" component={Jiaoyou}/>
+      <Route path="/Jiaoyou/:id" component={Jiaoyou_detail}/>
       <Route path="/zhuchao" component={Zhuchao}/>
+      <Route path="/zhuchao/:id" component={Zhuchao_detail}/>
     </Route>
   </Router>
 ), document.getElementById('app'))

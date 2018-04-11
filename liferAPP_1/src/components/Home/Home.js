@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component ,PropTypes} from 'react';
 import Home_Search from './Home_Search';
 import Home_miju from './Home_miju';
 import Home_miyou from './Home_miyou';
@@ -11,16 +11,18 @@ class Home extends Component {
   render () {
     return (
       <div>
-        <Home_Search/>
+        <Home_Search updateSearch={this.props.updateSearch}/>
         <div className="moduleTable">   
-            <Home_miyou/>
-            <Home_miju/>
-            <Home_jiaoyou/>
-            <Home_zhuchao/>
+            <Home_miyou hostname={this.props.hostname}/>
+            <Home_miju hostname={this.props.hostname}/>
+            <Home_jiaoyou hostname={this.props.hostname}/>
+            <Home_zhuchao hostname={this.props.hostname}/>
         </div>
       </div>
     );
   }
 }
-
+Home.propTypes = {
+  updateSearch: PropTypes.func.isRequired
+};
 export default Home;

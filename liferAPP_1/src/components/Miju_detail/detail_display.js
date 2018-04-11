@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import ajax from '../../utils/ajax';
 import axios from 'axios';
 
 class Detail_display extends React.Component {

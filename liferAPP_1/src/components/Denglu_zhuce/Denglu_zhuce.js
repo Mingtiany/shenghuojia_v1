@@ -5,7 +5,7 @@ class Denglu_zhuce extends Component {
     super(props, context);
     this.router = context.router;
     this.state = {
-     user:{"username":"ymt","password":"ymt","status":1,
+     user:{"username":"ymt","password":"ymt","status":"2",
      "avatar":"https://avatars2.githubusercontent.com/u/36024639?v=4"}
     };
   }

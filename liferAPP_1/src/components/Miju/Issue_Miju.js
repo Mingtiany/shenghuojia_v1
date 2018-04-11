@@ -4,7 +4,16 @@ class Issue_Miju extends React.Component{
     constructor (props) {
     super(props);
     // this.search = this.search.bind(this);
+    this.state={
+      hostname:""
+    };
   }
+
+
+componentWillMount(){
+  this.setState({hostname:this.props.hostname});
+}
+
 
   issue=()=>{
     this.props.hide();
@@ -13,7 +22,17 @@ class Issue_Miju extends React.Component{
      this.props.display_miyou();
     }
   }
-
+  
+  displayneedShare=()=>{
+    if(this.props.flag==="0"){
+    return(
+      <tr>
+          <td><input type="checkbox" ref="needShare"/>需要找人合租？</td>
+          
+        </tr>
+      );
+    }
+  }
   render(){
           const show=this.props.show;
   	return(
@@ -24,13 +43,17 @@ class Issue_Miju extends React.Component{
   		      <td>状态：</td>
             <td>寻室友</td>
          </tr>
+         <tr>
+          <td>租赁方式：</td>
+          <td><div style={{marginTop:5}}><span>合租</span></div></td>
+         </tr>
   		   <tr>
   		    <td>标题：</td>
   		    <td><div style={{marginTop:5}}><input type="text"/></div></td>
   		   </tr>
-         <tr>
-          <td>租赁方式：</td>
-          <td><div style={{marginTop:5}}><select><option>合租</option><option>整租</option></select></div></td>
+         <tr> 
+          <td>房间类型：</td>
+          <td><div style={{marginTop:5}}><input type="text"/></div></td>
          </tr>
          <tr> 
           <td>剩余房间：</td>
@@ -40,18 +63,18 @@ class Issue_Miju extends React.Component{
   	     	<td>租金：</td>
   	     	<td><div style={{marginTop:5}}><input type="text"/></div></td>
   	       </tr>
-  		   <tr> 
-  		    <td>房型：</td>
-  		    <td><div style={{marginTop:5}}><input type="text"/></div></td>
-  		   </tr> 
          <tr>
           <td>面积：</td>
           <td><div style={{marginTop:5}}><input type="text"/></div></td>
          </tr> 
   		   <tr>
-		    	<td>位置：</td>
+		    	<td>省-市-区：</td>
   		    <td><div style={{marginTop:5}}><input type="text"/></div></td>
-  		   </tr>   
+  		   </tr> 
+         <tr>
+          <td>具体位置：</td>
+          <td><div style={{marginTop:5}}><input type="text"/></div></td>
+         </tr>            
          <tr>
           <td>联系人：</td>
           <td><div style={{marginTop:5}}><input type="text"/></div></td>
@@ -61,26 +84,23 @@ class Issue_Miju extends React.Component{
           <td><div style={{marginTop:5}}><input type="text"/></div></td>
          </tr> 
          <tr>
-          <td>房源设施：</td>
+          <td>房源详情：</td>
           <td><div style={{marginTop:5}}><input type="text"/></div></td>
-         </tr>
+         </tr>        
          <tr>
           <td>小区名：</td>
-          <td><div style={{marginTop:5}}><input type="text"/></div></td>
-         </tr>
-         <tr>
-          <td>小区地址：</td>
           <td><div style={{marginTop:5}}><input type="text"/></div></td>
          </tr>
          <tr>
           <td>房源图片：</td>
           <td><div style={{width:50,height:50,border:"1px solid #000",marginTop:5}}></div></td>
          </tr>
-
-  		   <tr>
-  		    <td><input type="checkbox" ref="needShare"/>需要找人合租？</td>
-  		    <td><div style={{marginLeft:"40%"}}><input type="button" value="发布" onClick={this.issue}/></div></td>
-  		   </tr> 
+         <tr>
+          {this.displayneedShare()}
+          <td><div style={{marginLeft:"40%"}}><input type="button" value="发布" onClick={this.issue}/></div></td>
+        </tr>
+        
+  		    
   		 </tbody>
   		</table>
   		</div>

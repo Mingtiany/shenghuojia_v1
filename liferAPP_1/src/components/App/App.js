@@ -14,7 +14,10 @@ export default class App extends React.Component {
      this.state={
       user:{"username":"","status":0,"avatar":""},
       error:"",
-      socket:""
+      socket:"",
+      searchName:"",
+      searchCity:"",
+      hostname:"http://shenghuojia.studio712.cn/server"
      };
   }
 
@@ -25,10 +28,29 @@ this.setState({
 });
 
 }
+updateSearch=(newsearchCity,newsearchName)=>{
+  this.setState({
+    searchCity:newsearchCity,
+    searchName:newsearchName
+  });
+}
 
 displayChildren=()=>{
+  React.cloneElement(this.props.children, {hostname: this.state.hostname})
   if(this.props.children.type.name==="Denglu_zhuce"){
     return(React.cloneElement(this.props.children, {updateState: this.updateState}));   
+  }
+  else if(this.props.children.type.name==="Miju"){
+    return(React.cloneElement(this.props.children, {user: this.state.user}));   
+  }
+  else if(this.props.children.type.name==="Miyou"){
+    return(React.cloneElement(this.props.children, {searchName:this.state.searchName,searchCity:this.state.searchCity}));   
+  }
+  else if(this.props.children.type.name==="Home"){
+    return(React.cloneElement(this.props.children, {updateSearch: this.updateSearch}));   
+  }
+  else if(this.props.children.type.name==="Jiaoyou"){
+    return(React.cloneElement(this.props.children, {searchName:this.state.searchName,searchCity:this.state.searchCity}));   
   }
   else{
     return(this.props.children);
@@ -40,6 +62,9 @@ setTopBar=(newStatus)=>{
     return(<Link to="/denglu_zhuce" activeClassName="active">登录/注册|</Link>);
   }
   else if(this.state.user.status===1){
+    return(<Link to="/Personal_page" ><img className="avatar" src={this.state.user.avatar}/></Link>);
+  }
+  else{
     return(<Link to="/Personal_page" ><img className="avatar" src={this.state.user.avatar}/></Link>);
   }
 }

@@ -15,7 +15,13 @@ class Jiaoyou extends Component {
       search_experience:''
     };
   }
-
+ 
+componentWillMount(){
+  this.setState({
+  search_Name:this.props.searchName,
+  search_City:this.props.searchCity
+  });
+}
    setSearch=(Name,City,party,perform,
     exhibition,experience)=>{
 
@@ -33,7 +39,9 @@ class Jiaoyou extends Component {
     return (
       <div>
         <Search_Jiaoyou setSearch={this.setSearch}/>
-        <JiaoyouList searchName={this.state.search_Name}/>
+        <JiaoyouList searchName={this.state.search_Name} searchCity={this.state.search_City} 
+        party={this.state.search_party} perform={this.state.search_perform} exhibition={this.state.search_exhibition}
+        experience={this.state.search_experience} hostname={this.props.hostname}/>
       </div>
     );
   }

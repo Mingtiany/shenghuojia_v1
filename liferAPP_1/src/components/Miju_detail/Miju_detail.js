@@ -1,37 +1,42 @@
 import React, { Component, PropTypes } from 'react';
 import Detail_display from './detail_display';
-import "./Miju_detail.css";
+import axios from 'axios';
 import Miju_detail_Miyou from "./Miju_detail_Miyou";
+import "./Miju_detail.css";
 class Miju_detail extends Component {
   constructor (props) {
     super(props);
     // this.search = this.search.bind(this);
     this.state={
-      house:{
-      "title":"整租 | 雨花区 实拍房源 交通便利 家电齐全 洪园",
-      "photo":"",
-      "rent_price":"2500/月",
-      "room_style":"3室2厅1卫",
-      "rent_style":"整租",
-      "room_area":"86平方米",
-      "community":{"xiaoqu":"洪园","addr":"岳麓区 麓山南路327号"},
-      "room_left":"4缺2",
-      "room_facility":"洗衣机,空调,暖气",
-      "location":"距离2号线迎宾路口地铁站1200米",
-      "longitude":"112.97",
-      "latitude":"28.184",
-      "house_discribtion":"1.周边学校有地质中学 2.交通便利",
-      "host":"李先生"
-    },
-    displayMiyou:"none",
-    x:"",
-    y:""
+      firstView: false,
+      loading: false,
+      error: null,
+      house:"",
+      displayMiyou:"none",
+      x:"",
+      y:""
     };
 
   }
 
-componentDidMount () {
-  var BMap = window.BMap
+componentWillMount(){
+  var id=this.props.params.id;
+   const url = 'http://test.712studio.cn:8000/miju/detail?id='+id;
+    this.setState({ firstView: false, loading: true });
+    axios.get(url)
+      .then((response) => {
+        console.log(response.data.data);
+        this.setState({ loading: false, house: response.data.data})
+
+      })
+      .catch((error)=>{
+        console.log(error)
+        this.setState({ loading: false, error: error.toString() })
+      })
+}
+
+  mymap=()=>{
+ var BMap = window.BMap;
   var map = new BMap.Map("map"); // 创建Map实例
   var point= new BMap.Point(this.state.house.longitude,this.state.house.latitude);
   map.centerAndZoom(point, 11); // 初始化地图,设 置中心点坐标和地图级别
@@ -48,8 +53,8 @@ componentDidMount () {
   var infoWindow = new BMap.InfoWindow(this.state.house.location, opts);  // 创建信息窗口对象    
   map.openInfoWindow(infoWindow, map.getCenter());      // 打开信息窗口
                       
-}
 
+  }
   handleMouseOver=(e)=>{
 
     this.setState({
@@ -66,26 +71,35 @@ componentDidMount () {
   }
 
   render () {
+     if (this.state.firstView) {
+      return <h2>Enter name to search</h2>;
+    } else if (this.state.loading) {
+      return <h2>Loading result...</h2>;
+    } else if (this.state.error) {
+      return <h2>{this.state.error}</h2>;
+    } else {
     return (
   <div className="myContent">
-   <Miju_detail_Miyou show={this.state.displayMiyou} x={this.state.x} y={this.state.y}/>
+   <Miju_detail_Miyou show={this.state.displayMiyou} x={this.state.x} y={this.state.y} host={this.state.house.host}/>
     <table className="mytable" >
       <tbody>
       <tr>
         <td>
           <div className="basicImformation">
-            <h2 className="title">{this.state.house.title}</h2>
-            <div className="myProfilePhoto">
-                  <div className="mydisplayPhoto"></div>
-                  <div className="myMorePhoto"></div>                  
+            <h2 className="mytitle1">{this.state.house.title}</h2>
+            <div className="myProfilePhoto1">
+                  <img src={this.state.house.pictures[0]}/>
+                  <div ></div>                  
             </div>
-             <div className="imformation" >
-                  <p  style={{fontSize: 20,fontWeight:"bold"}}>{this.state.house.rent_price}</p>
-                  <p>房型：{this.state.house.room_style} {this.state.house.room_area}</p>
-                  <p>租赁方式：{this.state.house.rent_style}</p>
+             <div className="myimformation1" >
+                  <p id="price">{this.state.house.price}元/月</p>
+                  <p>房型：{this.state.house.room_style} {this.state.house.room_area}平米</p>
+                  <p>租赁方式：{this.state.house.rent_type}</p>
+                  <p>房间剩余：{this.state.house.room_left}</p>
                   <p>位置：{this.state.house.location}</p>
-                  <p>联系人：<div className="the_host" onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>{this.state.house.host}</div></p>
-                  </div>
+                  <p>小区：{this.state.house.community}</p>
+                  <p>联系人：<div className="the_host" onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>{this.state.house.host.name}</div></p>
+              </div>
              </div>
         </td>
       </tr>
@@ -103,9 +117,9 @@ componentDidMount () {
           <td>
           <div className="house_discribtion">
             <span>房源描述：</span>
-            <div>
-              {this.state.house.house_discribtion}
-            </div>
+            <p>
+              {this.state.house.detail}
+            </p>
           </div>
         </td>
       </tr>
@@ -114,12 +128,12 @@ componentDidMount () {
           <div className="community">
             <span >小区详情：</span>
             <div>
-              <p>小区：{this.state.house.community.xiaoqu}</p>
-              <p>地址：{this.state.house.community.addr}</p>
+              <p>小区：{this.state.house.community}</p>
+              <p>地址：{this.state.house.location}</p>
             </div>
             
-            <div id='map' />
-          
+            <div id='map' onClick={this.mymap}>点击查看地图</div>
+           
           </div>
         </td>
       </tr>
@@ -167,7 +181,9 @@ componentDidMount () {
     </table>
   </div>
     );
+   }
   }
+
 }
 
 export default Miju_detail;

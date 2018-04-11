@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import ajax from '../../utils/ajax';
 import axios from 'axios';
+import NavLink from'../Miju/NavLink.js';
 import "./JiaoyouList.css"
 
 class JiaoyouList extends Component {
@@ -9,82 +9,86 @@ class JiaoyouList extends Component {
     this.state = {
       firstView: false,
       loading: false,
-      activities: [{
-      "id":"1",
-      "name":"针对于WebStorm工具开发React工程详细配置",
-      "time":"2018-01-03",
-      "location":"五一广场 星巴克",
-      "type":"技术交流会",
-      "price":"活动费用",
-      "organizer":"中南大学软件学院",
-      "hot_number":"关注量",
-      "QR_code":"二维码url",
-      "followers":"",
-      "photo":"https://avatars3.githubusercontent.com/u/1157266?v=4"
-    },
-    {
-      "id":"2",
-      "name":"针对于WebStorm工具开发React工程详细配置",
-      "time":"2018-01-03",
-      "location":"中南大学唱吧",
-      "type":"技术交流会",
-      "price":"活动费用",
-      "organizer":"中南大学软件学院",
-      "hot_number":"关注量",
-      "QR_code":"二维码url",
-      "followers":"",
-      "photo":"https://avatars3.githubusercontent.com/u/1157266?v=4"
-    },
-    {
-      "id":"3",
-      "name":"针对于WebStorm工具开发React工程详细配置",
-      "time":"2018-01-03",
-      "location":"中南大学唱吧",
-      "type":"技术交流会",
-      "price":"活动费用",
-      "organizer":"中南大学软件学院",
-      "hot_number":"关注量",
-      "QR_code":"二维码url",
-      "followers":"",
-      "photo":"https://avatars3.githubusercontent.com/u/1157266?v=4"
-    },
-    {
-      "id":"4",
-      "name":"针对于WebStorm工具开发React工程详细配置",
-      "time":"2018-01-03",
-      "location":"中南大学唱吧",
-      "type":"技术交流会",
-      "price":"活动费用",
-      "organizer":"中南大学软件学院",
-      "hot_number":"关注量",
-      "QR_code":"二维码url",
-      "followers":"",
-      "photo":"https://avatars3.githubusercontent.com/u/1157266?v=4"
-    }
-
-    ],
-      error: null
+      activities:null,
+      error: null,
+      hostname:""
     };
   }
-/*
-  componentWillReceiveProps(nextProps)  {
-    let searchName = nextProps.searchName;
-     if(searchName!==''){
-    const url = 'https://api.github.com/search/users?q='+searchName;
-    this.setState({ firstView: false, loading: true });
-    axios.get(url)
+
+    componentWillMount()  {
+
+      this.setState({hostname:this.props.hostname});
+     const url = this.state.hostname+'/jiaoyou/list';
+      this.setState({ firstView: false, loading: true });
+      axios.post(url)
+          .then((response)=>{
+              console.log(response.data.data)
+              this.setState({ loading: false, activities: response.data.data })
+          })
+         .catch((error)=>{
+             console.log(error)
+             this.setState({ loading: false, error: error.toString() })
+          })
+  }
+ 
+ componentWillReceiveProps(nextProps)  {
+  let searchName = nextProps.searchName;
+  let searchCity = nextProps.searchCity;
+  let party=nextProps.party;
+  let perform=nextProps.perform;
+  let exhibition=nextProps.exhibition;
+  let experience=nextProps.experience;
+  var mytype=[];
+  if(party==="1"){
+    mytype.push("聚会");
+  }
+  if(perform==="1"){
+    mytype.push("演出");
+  }
+  if(exhibition==="1"){
+    mytype.push("展览");
+  } 
+  if(experience==="1"){
+    mytype.push("体验课");
+  }  
+
+  var url=this.state.hostname+"/jiaoyou/list";
+  var params="";
+  if(searchCity!=="城市"){ 
+   params={region:searchCity};
+   if(mytype.length!==0){
+   params={region:searchCity,type:mytype};
+   }
+   if(searchName!=""){
+    params={region:searchCity,name:searchName};
+    if(mytype.length!==0){
+     params={region:searchCity,type:mytype,name:searchName};
+     }
+   }
+  }
+  else{
+   if(mytype.length!==0){
+   params={type:mytype};
+   }
+   if(searchName!=""){
+    params={name:searchName};
+    if(mytype.length!==0){
+     params={type:mytype,name:searchName};
+     }
+   }
+  }
+   this.setState({ firstView: false, loading: true });
+    axios.post(url,params)
       .then((response) => {
-        console.log(response)
-        this.setState({ loading: false, activities: response.data.items })
+        this.setState({ loading: false, activities: response.data.data })
       })
       .catch((error)=>{
         console.log(error)
         
         this.setState({ loading: false, error: error.toString() })
       })
-    }
-  }
-*/
+ }
+
   render () {
 
     if (this.state.firstView) {
@@ -97,9 +101,12 @@ class JiaoyouList extends Component {
       return (
         <div className="row">
         {
-            this.state.activities.map((activity) => (
-              <div className="content" key={activity.id}>
-                    <img className="photo_act" src={activity.photo}/>
+            this.state.activities.map((activity) => {
+              const to="/Jiaoyou/:"+activity.id
+              return(
+              <NavLink to={to} key={activity.id}>
+              <div className="content">
+                    <img className="photo_act" src={activity.QR_code}/>
                     <div className="detail_act">
                         <h5 >{activity.name}</h5>
                         <span>
@@ -110,8 +117,9 @@ class JiaoyouList extends Component {
                         </span>
                         <p className="act_intro">WebStorm作为目前最流流行的前端IDE, 无论从运行速度还是开发的便捷性，无形之中提高了工作效率。</p>
                     </div>
-            </div> 
-            ))
+              </div>
+              </NavLink>
+            );})
           }
 
         </div>

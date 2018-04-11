@@ -13,24 +13,35 @@ class Search_Miyou extends Component {
 
   search=()=>{
     var Name=this.refs.Name.value.trim();
-    if(Name===''){
-      return
-    }
+
     var City=this.refs.City.value;
+    if((!this.refs.man.checked)&&(!this.refs.woman.checked)){
+    alert("请选择性别！");
+    return;
+    }
     if(this.refs.man.checked){
-      var Sex="man";
+      var Sex="0";
     }
     else{
-      var Sex="woman";
+      var Sex="1";
     }
     if(this.refs.RejectPets.checked){
-      var RejectPets="yes";
+      var RejectPets="1";
+    }
+    else{
+      var RejectPets="0";
     }
     if(this.refs.RejectSmoking.checked){
-      var RejectSmoking="yes";
+      var RejectSmoking="1";
+    }
+    else{
+      var RejectSmoking="0";
     }
     if(this.refs.RejectNoise.checked){
-      var RejectNoise="yes";
+      var RejectNoise="1";
+    }
+    else{
+      var RejectNoise="0";
     }
 
     this.props.setSearch(Name,City,Sex,RejectPets,
@@ -60,8 +71,8 @@ class Search_Miyou extends Component {
   render () {
     return (
         <div className="contain">
-        <Issue_Miyou show={this.state.show} hide={this.hide_issue} display_Miju={this.display_Miju_issue}/>
-        <Issue_Miju show={this.state.showMiju} hide={this.hide_Miju_issue}/>
+        <Issue_Miyou show={this.state.show} hide={this.hide_issue} display_Miju={this.display_Miju_issue} flag={"0"}/>
+        <Issue_Miju show={this.state.showMiju} hide={this.hide_Miju_issue} flag={"1"}/>
         <div className="search_1">
           <p className="search_title">寻找您的理想室友></p>
           <table className="Table"> 
@@ -72,6 +83,7 @@ class Search_Miyou extends Component {
                   <option>城市</option>
                   <option>北京</option>
                   <option>上海</option>
+                  <option>长沙</option>
                 </select>
               </td>
               <td>

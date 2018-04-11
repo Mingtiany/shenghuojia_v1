@@ -6,45 +6,74 @@ class Search_Miju extends Component {
     super(props);
     // this.search = this.search.bind(this);
     this.state={
+      user:null,
       show:"none",
       showMiyou:"none"
     };
   }
+  componentWillMount(){
+    this.setState({user:this.props.user});
+  }
+
 
   search=()=>{
     var Name=this.refs.Name.value.trim();
-    if(Name===''){
-      return
-    }
     var City=this.refs.City.value;
     if(this.refs.zhengzu.checked){
-      var zhengzu="yes";
+      var zhengzu="整租";
+    }
+    else{
+      var zhengzu="";
     }
     if(this.refs.danjian.checked){
-      var danjian="yes";
+      var danjian="单间";
+    }
+    else{
+      var danjian="";
     }
     if(this.refs.xiaoqu.checked){
-      var xiaoqu="yes";
+      var xiaoqu="1";
+    }
+    else{
+      var xiaoqu="0";
     }
     if(this.refs.dianti.checked){
-      var dianti="yes";
+      var dianti="1";
+    }
+    else{
+      var dianti="0";
     }
      if(this.refs.jingzhuangxiu.checked){
-      var jingzhuangxiu="yes";
+      var jingzhuangxiu="1";
     }
-     if(this.refs.jingdianti.checked){
-      var jingdianti="yes";
+    else{
+      var jingzhuangxiu="0";
+    }
+     if(this.refs.jingditie.checked){
+      var jingditie="1";
+    }
+    else{
+      var jingditie="0";
     }
 
     this.props.setSearch(Name,City,zhengzu,danjian,
-    xiaoqu,dianti,jingzhuangxiu,jingdianti);
+    xiaoqu,dianti,jingzhuangxiu,jingditie);
   }
 
 
  issue_miju=()=>{
+  var status=this.state.user.status;
+  if(status==2){
       this.setState({
         show:"block"
       });
+    }
+    else if(status==1){
+      alert("请实名认证");
+    }
+     else {
+      alert("请登录");
+    }
   }
   hide_issue=()=>{
       this.setState({
@@ -65,8 +94,8 @@ class Search_Miju extends Component {
   render () {
     return (
         <div className="contain">
-        <Issue_Miju show={this.state.show} hide={this.hide_issue} display_miyou={this.display_issue_miyou}/>
-        <Issue_Miyou show={this.state.showMiyou} hide={this.hide_Miyou_issue}/>
+        <Issue_Miju show={this.state.show} hide={this.hide_issue} display_miyou={this.display_issue_miyou} flag={"0"} hostname={this.props.hostname}/>
+        <Issue_Miyou show={this.state.showMiyou} hide={this.hide_Miyou_issue} flag={"1"} hostname={this.props.hostname}/>
         <div className="search_1">
           <p className="search_title">寻找您的理想房源></p>
           <table className="Table">
@@ -77,6 +106,7 @@ class Search_Miju extends Component {
                   <option>城市</option>
                   <option>北京</option>
                   <option>上海</option>
+                  <option>长沙</option>
                 </select>
               </td>
               <td>
@@ -98,7 +128,7 @@ class Search_Miju extends Component {
           <input type="checkbox" name="" ref="xiaoqu" value="xiaoqu"/>小区
           <input type="checkbox" name="" ref="dianti" value="dianti"/>电梯
           <input type="checkbox" name="" ref="jingzhuangxiu" value="jingzhuangxiu"/>精装修
-          <input type="checkbox" name="" ref="jingdianti" value="jingdianti"/>近电梯
+          <input type="checkbox" name="" ref="jingditie" value="jingditie"/>近地铁
         </div>
       </div>
     );

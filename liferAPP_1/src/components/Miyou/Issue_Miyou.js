@@ -13,6 +13,12 @@ class Issue_Miyou extends React.Component{
     }
   }
 
+  displayisRent=()=>{
+    if(this.props.flag==="0"){
+      return(<td><input type="checkbox" ref="isRent" />已租房？</td>);
+    }
+  }
+
   render(){
           const show=this.props.show;
   	return(
@@ -44,7 +50,7 @@ class Issue_Miyou extends React.Component{
   		    <td><div style={{marginTop:10}}><textarea rows="3" cols="30"/></div></td>
   		   </tr>   
   		   <tr>
-  		    <td><input type="checkbox" ref="isRent" />已租房？</td>
+  		    {this.displayisRent()}
   		    <td><div style={{marginTop:10,marginLeft:"40%"}}><input type="button" value="发布" onClick={this.issue}/></div></td>
   		   </tr> 
   		 </tbody>

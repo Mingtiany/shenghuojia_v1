@@ -6,82 +6,86 @@ class Home_jiaoyou extends Component {
     super(props);
     // this.search = this.search.bind(this);
     this.state = {
-      loading: true,
-      users: null,
-      error: null
+     firstView: false,
+      loading: false,
+      activities:null,
+      error: null,
+      hostname:""
     };
   }
-   componentWillMount(){
+   componentWillMount()  {
+    this.setState({hostname:this.props.hostname});
+    // const url = 'http://test.712studio.cn:8000/jiaoyou/list';
+    const url = this.state.hostname+'/jiaoyou/list';
+      this.setState({ firstView: false, loading: true });
+      axios.post(url)
+          .then((response)=>{
+              console.log(response.data.data)
+              this.setState({ loading: false, activities: response.data.data })
+          })
+         .catch((error)=>{
+             console.log(error)
+             this.setState({ loading: false, error: error.toString() })
+          })
+  }
 
-    const url = 'https://api.github.com/search/users?q=y';
-    
-    axios.get(url)
-      .then((response) => {
-        console.log("发送ajax成功")
-        this.setState({ loading: false, users: response.data.items })
-      })
-      .catch((error)=>{
-        console.log(error)
-        this.setState({ loading: false, error: error.toString() })
-      })
-   }
-
-     displayCard=(index)=>{
-                 
-                    return(
-                      <div className="jiaoyou_card">
-                      <img src={this.state.users[index].avatar_url} style={{width: '100px',height:'70px'}}/>
-                      <p className="jiaoyou_card_text">{this.state.users[index].login}</p>
-                      </div>);
-                    }
-                 
-
-     display=()=>{
-                        
-                   if (this.state.firstView) {
-                         return <h2>Enter name to search</h2>;
-                    } else if (this.state.loading) {
-                         return <h2>Loading result...</h2>;
-                    } else if (this.state.error) {
-                         return <h2>{this.state.error}</h2>;
-                   } else {
-                    
-                    return (
-                          <div className="Table_miyou_card">
-                              {this.displayCard(1)}
-                              {this.displayCard(2)}
-                              {this.displayCard(3)}
-                              {this.displayCard(4)}
-                              {this.displayCard(5)}
-                              {this.displayCard(6)}  
-                          </div>
-                        )}
-                   }
-
-  render () {
-    return (
+    render () {
+  if (this.state.firstView) {
+    return <h2>Enter name to search</h2>;
+  } else if (this.state.loading) {
+    return <h2>Loading result...</h2>;
+  } else if (this.state.error) {
+    return <h2>{this.state.error}</h2>;
+  } else {
+      return (
       <div className="module_jiaoyou" >
         <table className="Table_jiaoyou">
          <tbody>
           <tr>
             <td className="jiaoyou_title" >
-    
+                <NavLink to="/jiaoyou">
                 <h4>郊游</h4>
                 <p>拓展我的社交圈</p>
+                </NavLink>
             </td>
             <td>
-                {this.display()}  
+                  <div className="Jiaoyou_card">
+                    {
+                      this.state.activities.map((activity) => {
+                      const to="/Jiaoyou/:"+activity.id
+                      return(
+                        <NavLink to={to} key={activity.id}>
+                        <div className="Home_jiaoyou_card">
+                          <img className="Home_photo_act" src={activity.QR_code}/>
+                          <div className="Home_detail_act">
+                             <h5 >{activity.name}</h5>
+                             <span>
+                               <p>时间：{activity.time}</p>
+                               <p>地点：{activity.location}</p>
+                               <p>费用：{activity.price}</p>
+                               <p>类型：{activity.type}</p>
+                                <p>主办方：{activity.organizer}</p>
+                              </span>
+                          </div>
+                        </div>
+                        </NavLink>
+            );})
+                    }
+
+                  </div> 
             </td>
             <td className="jiaoyou_more" >
                <NavLink to="/jiaoyou"><h5>更多活动></h5></NavLink>
 
             </td>
           </tr>
-          </tbody>
+         </tbody> 
         </table>
       </div>
     );
+    }
   }
-}
+  }
+
 
 export default Home_jiaoyou;

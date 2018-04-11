@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import ajax from '../../utils/ajax';
 import axios from 'axios';
 import {Link} from 'react-router';
 import "./MiyouList.css"
@@ -10,70 +9,74 @@ class MiyouList extends React.Component {
     this.state = {
       firstView: false,
       loading: false,
-      roommates:[
-      {
-          "_idcard":"1231323",
-          "avater":"https://avatars2.githubusercontent.com/u/36024639?v=4",
-          "nickname":"逍遥游",
-          "condition":"#宅男#IT#游戏", 
-          "location":"求租大学城附近",
-          "want_rent_price":"<1500/月",       
-          "isHost":"NO",
-          "introduction":"一段笑死啊哦的介绍，哈哈十分十分"
-      },
-      {
-          "_idcard":"1341323",
-          "avater":"https://avatars2.githubusercontent.com/u/36024639?v=4",
-          "nickname":"逍遥游",
-          "condition":"#宅男#IT#游戏", 
-          "location":"#求租大学城附近",
-          "want_rent_price":"<1500/月",       
-          "isHost":"NO",
-          "introduction":"一段笑死啊哦的介绍，哈哈十分十分"
-      },
-      {
-          "_idcard":"4531323",
-          "avater":"https://avatars2.githubusercontent.com/u/36024639?v=4",
-          "nickname":"逍遥游",
-          "condition":"#宅男#IT#游戏", 
-          "location":"#求租大学城附近",
-          "want_rent_price":"<1500/月",       
-          "isHost":"NO",
-          "introduction":"一段笑死啊哦的介绍，哈哈十分十分"
-      },
-      {
-          "_idcard":"12erwrw23",
-          "avater":"https://avatars2.githubusercontent.com/u/36024639?v=4",
-          "nickname":"逍遥游",
-          "condition":"#宅男#IT#游戏", 
-          "location":"#求租大学城附近",
-          "want_rent_price":"<1500/月",       
-          "isHost":"NO",
-          "introduction":"一段笑死啊哦的介绍，哈哈十分十分"
-      },
-      ],
+      roommates:null,
       error: null
     };
   }
-/*
-  componentWillReceiveProps(nextProps)  {
-    let searchName = nextProps.searchName;
-    if(searchName!=''){
-    console.log('发送ajax请求', searchName);
-    const url = `https://api.github.com/search/users?q=${searchName}`;
+
+  componentWillMount()  {
+    //let searchName = nextProps.searchName;
+
+    //console.log('发送ajax请求', searchName);
+    const url = 'http://test.712studio.cn:8000/miyou/list';
     this.setState({ firstView: false, loading: true });
     axios.get(url)
       .then((response) => {
-        console.log(response)
-        this.setState({ loading: false, users: response.data.items })
+        console.log(response.data.data)
+        this.setState({ loading: false, roommates: response.data.data })
+
       })
       .catch((error)=>{
         console.log(error)
         this.setState({ loading: false, error: error.toString() })
       })
+    
+  }
+
+componentWillReceiveProps(nextProps)  {
+    let searchCity = nextProps.searchCity;
+    let searchName = nextProps.searchName;
+    let searchSex = nextProps.searchSex;
+    let noPets=nextProps.noPets;
+    let noSmoking=nextProps.noSmoking;
+    let noNoise=nextProps.noNoise;
+    var url="";
+     if(searchCity==="城市"){
+        if(searchName!==""){
+          url = 'http://test.712studio.cn:8000/miyou/list?location='+searchName+'&gender='+searchSex+'&nopets='+noPets+'&nosmoking='+noSmoking+'&nonoise='+noNoise;
+        }
+         else{
+          url = 'http://test.712studio.cn:8000/miyou/list?gender='+searchSex+'&nopets='+noPets+'&nosmoking='+noSmoking+'&nonoise='+noNoise;
+        }
+     }
+     else{
+
+        if(searchName!==""){
+          url = 'http://test.712studio.cn:8000/miyou/list?location='+searchName+'&region='+searchCity+'&gender='+searchSex+'&nopets='+noPets+'&nosmoking='+noSmoking+'&nonoise='+noNoise;
+        }
+         else{
+          url = 'http://test.712studio.cn:8000/miyou/list?region='+searchCity+'&gender='+searchSex+'&nopets='+noPets+'&nosmoking='+noSmoking+'&nonoise='+noNoise;
+         }
+     }
+    this.setState({ firstView: false, loading: true });
+    axios.get(url)
+      .then((response) => {
+        this.setState({ loading: false, roommates: response.data.data })
+      })
+      .catch((error)=>{
+        console.log(error)
+        
+        this.setState({ loading: false, error: error.toString() })
+      })
+
+  }
+
+  displayflag=(flag)=>{
+    if(flag!==null){
+      return(<div className="flag1"><Link to={"/miju/"+flag}>有房源</Link></div>);
     }
   }
-*/
+
   render () {
 
     if (this.state.firstView) {
@@ -88,12 +91,12 @@ class MiyouList extends React.Component {
           {
             this.state.roommates.map((roommate) => (
               <div className="CardId" key={roommate._idcard}>
-                    <img className="ProfilePhoto" src={roommate.avater}/>
+                    <img className="ProfilePhoto" src={roommate.avatar}/>
                     <div className="imformation">
-                      <h3 className="username">{roommate.nickname}</h3>
-                      <div className="flag1"><Link to={"/miju/:"+roommate._idcard}>有房源</Link></div>
-                        <p >{roommate.location}{roommate.condition} </p>
-                        <p >{roommate.want_rent_price}</p>
+                      <h4 className="username">{roommate.name}</h4>
+                      {this.displayflag(roommate.roominfo)}
+                        <p >#{roommate.location}#宅男 IT 篮球 </p>
+                        <p >{roommate.want_rent_price}/月</p>
                     </div>
                     <div className="introduce">
                       <p>{roommate.introduction}</p>

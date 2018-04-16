@@ -10,16 +10,18 @@ class MiyouList extends React.Component {
       firstView: false,
       loading: false,
       roommates:null,
-      error: null
+      error: null,
+      hostname:""
     };
   }
 
   componentWillMount()  {
     //let searchName = nextProps.searchName;
-
+    this.setState({hostname:this.props.hostname});
     //console.log('发送ajax请求', searchName);
-    const url = 'http://test.712studio.cn:8000/miyou/list';
+    const url = this.props.hostname+'/miyou/list';
     this.setState({ firstView: false, loading: true });
+    if(this.props.searchName==""){
     axios.get(url)
       .then((response) => {
         console.log(response.data.data)
@@ -30,7 +32,7 @@ class MiyouList extends React.Component {
         console.log(error)
         this.setState({ loading: false, error: error.toString() })
       })
-    
+    }
   }
 
 componentWillReceiveProps(nextProps)  {
@@ -41,26 +43,27 @@ componentWillReceiveProps(nextProps)  {
     let noSmoking=nextProps.noSmoking;
     let noNoise=nextProps.noNoise;
     var url="";
-     if(searchCity==="城市"){
+     if(searchCity==="全部"){
         if(searchName!==""){
-          url = 'http://test.712studio.cn:8000/miyou/list?location='+searchName+'&gender='+searchSex+'&nopets='+noPets+'&nosmoking='+noSmoking+'&nonoise='+noNoise;
+          url = this.state.hostname+'/miyou/list?location='+searchName+'&gender='+searchSex+'&nopets='+noPets+'&nosmoking='+noSmoking+'&nonoise='+noNoise;
         }
          else{
-          url = 'http://test.712studio.cn:8000/miyou/list?gender='+searchSex+'&nopets='+noPets+'&nosmoking='+noSmoking+'&nonoise='+noNoise;
+          url = this.state.hostname+'/miyou/list?gender='+searchSex+'&nopets='+noPets+'&nosmoking='+noSmoking+'&nonoise='+noNoise;
         }
      }
      else{
 
         if(searchName!==""){
-          url = 'http://test.712studio.cn:8000/miyou/list?location='+searchName+'&region='+searchCity+'&gender='+searchSex+'&nopets='+noPets+'&nosmoking='+noSmoking+'&nonoise='+noNoise;
+          url = this.state.hostname+'/miyou/list?location='+searchName+'&region='+searchCity+'&gender='+searchSex+'&nopets='+noPets+'&nosmoking='+noSmoking+'&nonoise='+noNoise;
         }
          else{
-          url = 'http://test.712studio.cn:8000/miyou/list?region='+searchCity+'&gender='+searchSex+'&nopets='+noPets+'&nosmoking='+noSmoking+'&nonoise='+noNoise;
+          url = this.state.hostname+'/miyou/list?region='+searchCity+'&gender='+searchSex+'&nopets='+noPets+'&nosmoking='+noSmoking+'&nonoise='+noNoise;
          }
      }
     this.setState({ firstView: false, loading: true });
     axios.get(url)
       .then((response) => {
+        console.log(response.data.data );
         this.setState({ loading: false, roommates: response.data.data })
       })
       .catch((error)=>{

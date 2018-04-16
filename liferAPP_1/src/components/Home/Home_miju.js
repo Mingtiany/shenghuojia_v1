@@ -17,7 +17,7 @@ class Home_miju extends Component {
     //let searchName = nextProps.searchName;
    this.setState({hostname:this.props.hostname});
     //console.log('发送ajax请求', searchName);
-    const url = this.state.hostname+'/miju/list';
+    const url = this.props.hostname+'/miju/list?offset=1&limit=5';
     this.setState({ firstView: false, loading: true });
     axios.get(url)
       .then((response) => {

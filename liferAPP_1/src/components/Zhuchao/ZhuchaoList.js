@@ -11,12 +11,13 @@ class ZhuchaoList extends React.Component {
       firstView: false,
       loading: false,
       articles: null,
-      error: null
+      error: null,
+      hostname:""
     };
   }
  componentWillMount()  {
-
-    const url = 'http://test.712studio.cn:8000/zhuchao/list?offset=0&limit=5';
+   this.setState({hostname:this.props.hostname});
+    const url = this.props.hostname+'/zhuchao/list?offset=0&limit=5';
     this.setState({ firstView: false, loading: true });
     axios.get(url)
       .then((response) => {

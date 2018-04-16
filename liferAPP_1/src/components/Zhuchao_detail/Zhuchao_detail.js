@@ -9,12 +9,13 @@ class Zhuchao_detail extends Component {
        firstView: false,
        loading: false,
        error: null,
+       hostname:"http://shenghuojia.studio712.cn/server"
     };
   }
 
 componentWillMount(){
   var id=this.props.params.id;
-   const url = 'http://test.712studio.cn:8000/zhuchao/detail?postid='+id;
+   const url = this.state.hostname+'/zhuchao/detail?postid='+id;
     this.setState({ firstView: false, loading: true });
     axios.post(url)
       .then((response) => {

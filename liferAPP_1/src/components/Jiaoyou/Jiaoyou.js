@@ -10,6 +10,7 @@ class Jiaoyou extends Component {
       search_Name:'',
       search_City:'',
       search_party:'',
+      search_Area:'',
       search_perform:'',
       search_exhibition:'',
       search_experience:''
@@ -22,12 +23,13 @@ componentWillMount(){
   search_City:this.props.searchCity
   });
 }
-   setSearch=(Name,City,party,perform,
+   setSearch=(Name,City,Area,party,perform,
     exhibition,experience)=>{
 
         this.setState({
           search_Name:Name,
           search_City:City,
+          search_Area:Area,
           search_party:party,
           search_perform:perform,
           search_exhibition:exhibition,

@@ -8,7 +8,7 @@ class Zhuchao extends Component {
       <div>
         <hr calssName="topline" style={{marginTop:100, 
           height:1, border:"none", borderTop:"1px solid lightgrey"}}/>
-          <ZhuchaoList />
+          <ZhuchaoList hostname={this.props.hostname}/>
       </div>
     );
   }

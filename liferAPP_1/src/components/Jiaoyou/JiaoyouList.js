@@ -18,17 +18,21 @@ class JiaoyouList extends Component {
     componentWillMount()  {
 
       this.setState({hostname:this.props.hostname});
-     const url = this.state.hostname+'/jiaoyou/list';
+     const url = this.props.hostname+'/jiaoyou/list';
       this.setState({ firstView: false, loading: true });
+    if(this.props.searchName==""){
       axios.post(url)
           .then((response)=>{
               console.log(response.data.data)
+              
               this.setState({ loading: false, activities: response.data.data })
           })
          .catch((error)=>{
              console.log(error)
              this.setState({ loading: false, error: error.toString() })
           })
+    }
+        
   }
  
  componentWillReceiveProps(nextProps)  {
@@ -54,7 +58,7 @@ class JiaoyouList extends Component {
 
   var url=this.state.hostname+"/jiaoyou/list";
   var params="";
-  if(searchCity!=="城市"){ 
+  if(searchCity!=="全部"){ 
    params={region:searchCity};
    if(mytype.length!==0){
    params={region:searchCity,type:mytype};
@@ -80,6 +84,7 @@ class JiaoyouList extends Component {
    this.setState({ firstView: false, loading: true });
     axios.post(url,params)
       .then((response) => {
+       
         this.setState({ loading: false, activities: response.data.data })
       })
       .catch((error)=>{

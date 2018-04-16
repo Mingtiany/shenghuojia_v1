@@ -15,7 +15,7 @@ class Home_zhuchao extends Component {
   }
    componentWillMount()  {
     this.setState({hostname:this.props.hostname});
-    const url = this.state.hostname+'/zhuchao/list?offset=0&limit=5';
+    const url = this.props.hostname+'/zhuchao/list?offset=0&limit=5';
     this.setState({ firstView: false, loading: true });
     axios.get(url)
       .then((response) => {

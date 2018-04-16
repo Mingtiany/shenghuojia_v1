@@ -3,8 +3,14 @@ class Issue_Miyou extends React.Component{
     constructor (props) {
     super(props);
     // this.search = this.search.bind(this);
+    this.state={
+      hostname:""
+    };
   }
 
+componentWillMount(){
+  this.setState({hostname:this.props.hostname});
+}
   issue=()=>{
     this.props.hide();
     var isRent=this.refs.isRent.checked;

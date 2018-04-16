@@ -16,7 +16,7 @@ class Home_jiaoyou extends Component {
    componentWillMount()  {
     this.setState({hostname:this.props.hostname});
     // const url = 'http://test.712studio.cn:8000/jiaoyou/list';
-    const url = this.state.hostname+'/jiaoyou/list';
+    const url = this.props.hostname+'/jiaoyou/list?offset=1&limit=6';
       this.setState({ firstView: false, loading: true });
       axios.post(url)
           .then((response)=>{

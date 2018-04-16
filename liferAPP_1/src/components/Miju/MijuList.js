@@ -10,7 +10,8 @@ class MijuList extends React.Component {
       loading: false,
       houses:null,
       error: null,
-      hostname:""
+      hostname:"",
+      flag:""
     };
   }
 
@@ -18,11 +19,11 @@ class MijuList extends React.Component {
     //let searchName = nextProps.searchName;
     this.setState({hostname:this.props.hostname});
     //console.log('发送ajax请求', searchName);
-    const url = this.state.hostname+'/miju/list';
+    const url = this.props.hostname+'/miju/list';
     this.setState({ firstView: false, loading: true });
     axios.get(url)
       .then((response) => {
-        console.log(response.data.data)
+       console.log(1);
         this.setState({ loading: false, houses: response.data.data })
 
       })
@@ -43,7 +44,7 @@ componentWillReceiveProps(nextProps)  {
     let fine_decoration=nextProps.fine_decoration;
     let subway=nextProps.subway;
     var url="";
-     if(searchCity==="城市"){
+     if(searchCity==="全部"){
         if(searchName!==""){
           if(searchZhengzu!==""){
              if(searchDanjian!==""){
@@ -152,9 +153,11 @@ componentWillReceiveProps(nextProps)  {
         else
          url=url+"&subway="+subway;
      }
+     
     this.setState({ firstView: false, loading: true });
     axios.get(url)
       .then((response) => {
+        console.log(2);
         this.setState({ loading: false, houses: response.data.data })
       })
       .catch((error)=>{
@@ -190,7 +193,7 @@ componentWillReceiveProps(nextProps)  {
             this.state.houses.map((house) => {
               const to = "/miju/"+house.id;
               return(    
-                          <NavLink to={to} key={house.id} hostname={this.state.hostname}>
+                          <NavLink to={to} key={house.id}>
                            <div className="Miju_CardId">
                                   <div className="Miju_ProfilePhoto">
                                     <img className="Miju_displayPhoto"src={house.thumb} />

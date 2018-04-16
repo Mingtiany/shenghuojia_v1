@@ -3,6 +3,7 @@ import Detail_display from './detail_display';
 import axios from 'axios';
 import Miju_detail_Miyou from "./Miju_detail_Miyou";
 import "./Miju_detail.css";
+import NavLink from'../Miju/NavLink.js'
 class Miju_detail extends Component {
   constructor (props) {
     super(props);
@@ -14,14 +15,15 @@ class Miju_detail extends Component {
       house:"",
       displayMiyou:"none",
       x:"",
-      y:""
+      y:"",
+      hostname:"http://shenghuojia.studio712.cn/server"
     };
 
   }
 
 componentWillMount(){
   var id=this.props.params.id;
-   const url = 'http://test.712studio.cn:8000/miju/detail?id='+id;
+   const url = this.state.hostname+'/miju/detail?id='+id;
     this.setState({ firstView: false, loading: true });
     axios.get(url)
       .then((response) => {
@@ -70,6 +72,11 @@ componentWillMount(){
     });
   }
 
+  dispTag=(thehouse)=>{
+
+    return("#"+thehouse.title+"#"+thehouse.rent_type+"#"+thehouse.room_style+"#"+thehouse.price+"元/月");
+  }
+
   render () {
      if (this.state.firstView) {
       return <h2>Enter name to search</h2>;
@@ -80,7 +87,7 @@ componentWillMount(){
     } else {
     return (
   <div className="myContent">
-   <Miju_detail_Miyou show={this.state.displayMiyou} x={this.state.x} y={this.state.y} host={this.state.house.host}/>
+   <Miju_detail_Miyou show={this.state.displayMiyou} x={this.state.x} y={this.state.y} host={this.state.house.host} />
     <table className="mytable" >
       <tbody>
       <tr>
@@ -142,36 +149,20 @@ componentWillMount(){
           <div className="similarHouse" >
             <span >相似房源：</span>
             <div className="display">
-              <div className="displaycard" >
-                <div className="dispPhoto"></div>
-                <div className="disTag">
-                  {"#五一广场 #电梯楼 #家具齐全 #小区 #<=3600/月"}
-                </div>
-              </div>
-             <div className="displaycard" >
-                <div className="dispPhoto"></div>
-                <div className="disTag">
-                  {"#五一广场 #电梯楼 #家具齐全 #小区 #<=3600/月"}
-                </div>
-              </div>
-              <div className="displaycard" >
-                <div className="dispPhoto"></div>
-                <div className="disTag">
-                  {"#五一广场 #电梯楼 #家具齐全 #小区 #<=3600/月"}
-                </div>
-              </div>
-             <div className="displaycard" >
-                <div className="dispPhoto"></div>
-                <div className="disTag">
-                  {"#五一广场 #电梯楼 #家具齐全 #小区 #<=3600/月"}
-                </div>
-              </div>
-              <div className="displaycard" >
-                <div className="dispPhoto"></div>
-                <div className="disTag">
-                  {"#五一广场 #电梯楼 #家具齐全 #小区 #<=3600/月"}
-                </div>
-              </div>
+             {
+              this.state.house.recommend.map((thehouse) => {
+              const to = "/miju/"+thehouse.id;
+              return(    
+                    <NavLink to={to} key={thehouse.id}>
+                      <div className="displaycard" >
+                        <img className="dispPhoto" src={thehouse.thumb}/>
+                        <div className="disTag">
+                          {this.dispTag(thehouse)}
+                        </div>
+                      </div>
+                    </NavLink>
+                    )})
+                }
 
             </div>
           </div>

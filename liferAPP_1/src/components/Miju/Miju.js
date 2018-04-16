@@ -10,6 +10,7 @@ class Miju extends Component {
       user:null,
       search_Name:'',
       search_City:'',
+      search_Area:'',
       search_zhengzu:'',
       search_danjian:'',
       search_xiaoqu:'',
@@ -32,12 +33,13 @@ class Miju extends Component {
      });
    }
 
-    setSearch=(Name,City,zhengzu,danjian,
+    setSearch=(Name,City,Area,zhengzu,danjian,
     xiaoqu,dianti,jingzhuangxiu,jingditie)=>{
 
         this.setState({
           search_Name:Name,
           search_City:City,
+          search_Area:Area,
           search_zhengzu:zhengzu,
           search_danjian:danjian,
           search_xiaoqu:xiaoqu,
@@ -53,7 +55,7 @@ class Miju extends Component {
         <Search_Miju setSearch={this.setSearch} user={this.state.user} hostname={this.props.hostname}/>
         <MijuList searchName={this.state.search_Name} searchCity={this.state.search_City} searchZhengzu={this.state.search_zhengzu} searchDanjian={this.state.search_danjian}
         is_community={this.state.search_xiaoqu} elevator={this.state.search_dianti} fine_decoration={this.state.search_jingzhuangxiu}
-        subway={this.state.search_jingditie} hostname={this.props.hostname}/>
+        subway={this.state.search_jingditie} hostname={this.props.hostname} />
       </div>
     );
   }
